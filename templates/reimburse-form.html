@@ -1,0 +1,251 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reimburse App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'reimburse-form-style.css' %}">
+</head>
+<body class="bg-slate-100">
+
+    <div class="container mx-auto max-w-3xl my-8">
+        <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+
+            <header class="flex items-center mb-8">
+                <a href="{% url 'core_app:user_dashboard' %}" class="text-slate-600 p-2 rounded-full hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </a>
+                <div class="ml-2">
+                    <h1 class="text-2xl font-bold text-slate-800">Reimburse App</h1>
+                    <p class="text-sm text-slate-500">Silahkan Lengkapi File Yang Dibutuhkan</p>
+                </div>
+            </header>
+
+            <main>
+                {% if limit_exceeded %}
+                    <!-- Tampilan jika limit sudah habis -->
+                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-lg" role="alert">
+                        <p class="font-bold">Limit Tercapai</p>
+                        <p>Anda sudah mencapai batas maksimal reimbursement untuk bulan ini. Anda bisa mengajukan lagi di bulan berikutnya.</p>
+                    </div>
+                {% else %}
+                    <!-- Tampilan form jika limit masih ada -->
+                    <form action="{% url 'core_app:reimburse_form' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Menampilkan pesan error dari Django Messages -->
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50" role="alert">
+                          Sisa limit Anda bulan ini: <span class="font-bold">Rp {{ remaining_limit|floatformat:0|intcomma }}</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
+                            <!-- Merender setiap field dari form secara manual untuk layout yang fleksibel -->
+                            <div class="md:col-span-2">
+                                <label for="{{ form.reimburse_date.id_for_label }}" class="block text-sm font-medium text-slate-600 mb-1">{{ form.reimburse_date.label }}</label>
+                                {{ form.reimburse_date }}
+                                {{ form.reimburse_date.errors }}
+                            </div>
+                            <div>
+                                <label for="{{ form.fuel_price.id_for_label }}" class="block text-sm font-medium text-slate-600 mb-1">{{ form.fuel_price.label }}</label>
+                                {{ form.fuel_price }}
+                                {{ form.fuel_price.errors }}
+                            </div>
+                            <div>
+                                <label for="{{ form.fuel_amount_liter.id_for_label }}" class="block text-sm font-medium text-slate-600 mb-1">{{ form.fuel_amount_liter.label }}</label>
+                                {{ form.fuel_amount_liter }}
+                                {{ form.fuel_amount_liter.errors }}
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="{{ form.fuel_type.id_for_label }}" class="block text-sm font-medium text-slate-600 mb-1">{{ form.fuel_type.label }}</label>
+                                {{ form.fuel_type }}
+                                {{ form.fuel_type.errors }}
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-slate-600 mb-1">{{ form.speedometer_before.label }}</label>
+                                <div class="custom-file-input">
+                                    <span class="file-name-display" id="speedometer-before-name">Pilih file...</span>
+                                    <label for="{{ form.speedometer_before.id_for_label }}" class="file-input-label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-5l-2-2H6a2 2 0 00-2 2z" />
+                                        </svg>
+                                        Choose File
+                                    </label>
+                                    <input type="file" id="{{ form.speedometer_before.id_for_label }}" name="{{ form.speedometer_before.name }}" class="file-input" onchange="updateFileName(this, 'speedometer-before-name')" {% if form.speedometer_before.field.required %}required{% endif %}>
+                                </div>
+                                {{ form.speedometer_before.errors }}
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-slate-600 mb-1">{{ form.speedometer_after.label }}</label>
+                                <div class="custom-file-input">
+                                    <span class="file-name-display" id="speedometer-after-name">Pilih file...</span>
+                                    <label for="{{ form.speedometer_after.id_for_label }}" class="file-input-label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-5l-2-2H6a2 2 0 00-2 2z" />
+                                        </svg>
+                                        Choose File
+                                    </label>
+                                    <input type="file" id="{{ form.speedometer_after.id_for_label }}" name="{{ form.speedometer_after.name }}" class="file-input" onchange="updateFileName(this, 'speedometer-after-name')" {% if form.speedometer_after.field.required %}required{% endif %}>
+                                </div>
+                                {{ form.speedometer_after.errors }}
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-slate-600 mb-1">{{ form.fuel_receipt.label }}</label>
+                                <div class="custom-file-input">
+                                    <span class="file-name-display" id="fuel-receipt-name">Pilih file...</span>
+                                    <label for="{{ form.fuel_receipt.id_for_label }}" class="file-input-label">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-5l-2-2H6a2 2 0 00-2 2z" />
+                                        </svg>
+                                        Choose File
+                                    </label>
+                                    <input type="file" id="{{ form.fuel_receipt.id_for_label }}" name="{{ form.fuel_receipt.name }}" class="file-input" onchange="updateFileName(this, 'fuel-receipt-name')" {% if form.fuel_receipt.field.required %}required{% endif %}>
+                                </div>
+                                {{ form.fuel_receipt.errors }}
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="{{ form.owner_user.id_for_label }}" class="block text-sm font-medium text-slate-600 mb-1">{{ form.owner_user.label }}</label>
+                                <div class="relative">
+                                    {{ form.owner_user }}
+                                    <!-- Tambahan untuk membantu user jika banyak option -->
+                                    <div class="text-xs text-slate-500 mt-1">
+                                        <i class="inline-block w-3 h-3 mr-1">
+                                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </i>
+                                        Klik dan scroll untuk melihat semua pilihan driver
+                                    </div>
+                                </div>
+                                {{ form.owner_user.errors }}
+                            </div>
+                        </div>
+
+                        <div class="pt-6">
+                            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                                Kirim
+                            </button>
+                        </div>
+                    </form>
+                {% endif %}
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function updateFileName(input, displayId) {
+            const display = document.getElementById(displayId);
+            if (input.files && input.files[0]) {
+                display.textContent = input.files[0].name;
+                display.style.color = '#1e293b'; // slate-800
+            } else {
+                display.textContent = 'Pilih file...';
+                display.style.color = '#64748b'; // slate-500
+            }
+        }
+
+        // Perbaikan untuk dropdown select yang panjang
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cari semua select element yang berisi "owner_user" di name atau id
+            const ownerSelects = document.querySelectorAll('select[name*="owner_user"], select[id*="owner_user"]');
+            
+            ownerSelects.forEach(function(ownerSelect) {
+                if (ownerSelect && ownerSelect.options.length > 0) {
+                    console.log('Found owner select with', ownerSelect.options.length, 'options');
+                    
+                    const optionCount = ownerSelect.options.length;
+                    
+                    // Jika ada lebih dari 3 option (termasuk option kosong), buat dropdown scrollable
+                    if (optionCount > 3) {
+                        // Mulai dengan dropdown normal
+                        ownerSelect.size = 1;
+                        
+                        // Event untuk membuka dropdown dengan klik atau focus
+                        ownerSelect.addEventListener('click', function() {
+                            console.log('Dropdown clicked, current size:', this.size);
+                            if (this.size === 1) {
+                                this.size = Math.min(6, optionCount); // Tampilkan maksimal 6 option
+                                this.style.height = 'auto';
+                                this.style.maxHeight = '200px';
+                                this.style.overflowY = 'auto';
+                                console.log('Dropdown opened, new size:', this.size);
+                            }
+                        });
+                        
+                        ownerSelect.addEventListener('focus', function() {
+                            console.log('Dropdown focused');
+                            if (this.size === 1) {
+                                this.size = Math.min(6, optionCount);
+                                this.style.height = 'auto';
+                                this.style.maxHeight = '200px';
+                                this.style.overflowY = 'auto';
+                            }
+                        });
+                        
+                        // Event untuk mengembalikan ke mode normal setelah memilih
+                        ownerSelect.addEventListener('change', function() {
+                            console.log('Selection changed:', this.value);
+                            setTimeout(() => {
+                                this.size = 1;
+                                this.style.height = '';
+                                this.style.maxHeight = '';
+                                this.style.overflowY = '';
+                                console.log('Dropdown closed');
+                            }, 100);
+                        });
+                        
+                        // Event untuk menutup dropdown dengan Escape
+                        ownerSelect.addEventListener('keydown', function(e) {
+                            if (e.key === 'Escape') {
+                                this.size = 1;
+                                this.style.height = '';
+                                this.style.maxHeight = '';
+                                this.style.overflowY = '';
+                                this.blur();
+                                console.log('Dropdown closed with Escape');
+                            }
+                        });
+                        
+                        // Tutup dropdown ketika kehilangan focus (kecuali jika sedang memilih)
+                        ownerSelect.addEventListener('blur', function() {
+                            setTimeout(() => {
+                                if (document.activeElement !== this) {
+                                    this.size = 1;
+                                    this.style.height = '';
+                                    this.style.maxHeight = '';
+                                    this.style.overflowY = '';
+                                    console.log('Dropdown closed on blur');
+                                }
+                            }, 200); // Delay untuk memungkinkan seleksi
+                        });
+                        
+                        // Tutup dropdown jika klik di luar
+                        document.addEventListener('click', function(e) {
+                            if (!ownerSelect.contains(e.target) && ownerSelect.size > 1) {
+                                ownerSelect.size = 1;
+                                ownerSelect.style.height = '';
+                                ownerSelect.style.maxHeight = '';
+                                ownerSelect.style.overflowY = '';
+                                console.log('Dropdown closed on outside click');
+                            }
+                        });
+                    }
+                } else {
+                    console.log('No owner select found or no options available');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konfirmasi Reimburse</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Font Inter dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Menghubungkan ke file CSS kustom Anda -->
+    <link rel="stylesheet" href="{% static 'reimburse-success-style.css' %}">
+</head>
+<body class="bg-slate-50">
+
+    <!-- Container Utama -->
+    <div class="max-w-md mx-auto bg-white min-h-screen flex flex-col shadow-lg">
+
+        <!-- Header -->
+        <header class="flex items-center p-4">
+            <!-- Tombol Kembali, arahkan ke form atau dashboard -->
+            <a href="{% url 'core_app:user_dashboard' %}" class="text-slate-600 p-2 rounded-full hover:bg-slate-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </a>
+            <h1 class="text-xl font-bold text-slate-800 ml-2">Konfirmasi</h1>
+        </header>
+
+        <!-- Konten Utama -->
+        <main class="flex-grow flex flex-col items-center justify-center text-center px-6">
+            
+            <!-- Ikon Sukses -->
+            <div class="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+
+            <!-- Pesan Sukses -->
+            <h2 class="text-2xl font-bold text-slate-800">Reimburse Berhasil Dikirim</h2>
+            <!-- Menampilkan tanggal dan waktu dari data reimbursement yang sebenarnya -->
+            <p class="text-sm text-slate-500 mt-1 mb-8">{{ reimbursement.submission_date|date:"d F Y" }} | {{ reimbursement.submission_date|time:"H:i:s" }} WIB</p>
+
+            <!-- Detail Ringkasan -->
+            <div class="w-full bg-slate-50 rounded-lg p-4 space-y-3 text-left">
+                <!-- Baris Harga BBM dan Plat Nomor -->
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-sm text-slate-500">Harga BBM(Rp)</p>
+                        <!-- Menampilkan total biaya dari data reimbursement -->
+                        <p class="text-lg font-bold text-slate-800">Rp {{ reimbursement.total_reimbursement_amount|floatformat:0|intcomma }}.-</p>
+                    </div>
+                    <!-- Menampilkan informasi plat nomor di sebelah kanan -->
+                    <div class="text-right">
+                        <p class="text-sm text-slate-500">Plat Nomor</p>
+                        <p class="text-lg font-bold text-slate-800">{{ reimbursement.get_plat_number }}</p>
+                    </div>
+                </div>
+                
+                <hr class="border-slate-200">
+
+                <!-- Item File -->
+                <div class="flex justify-between items-center">
+                    <p class="text-sm font-medium text-slate-700 underline">Spedometer Sebelum Pengisian</p>
+                    <p class="text-sm text-slate-500">Tersimpan</p>
+                </div>
+                <div class="flex justify-between items-center">
+                    <p class="text-sm font-medium text-slate-700 underline">Spedometer Sesudah Pengisian</p>
+                    <p class="text-sm text-slate-500">Tersimpan</p>
+                </div>
+                <div class="flex justify-between items-center">
+                    <p class="text-sm font-medium text-slate-700 underline">Struk Pembelian BBM</p>
+                    <p class="text-sm text-slate-500">Tersimpan</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Tombol -->
+        <footer class="p-6">
+            <a href="{% url 'core_app:user_dashboard' %}" class="w-full block text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                Kembali ke Beranda
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

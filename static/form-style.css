@@ -1,0 +1,98 @@
+/* Gaya umum untuk form dengan tema terang */
+
+.form-container {
+    max-width: 700px;
+    margin: 2rem auto; /* Memberi jarak atas/bawah dan memusatkan */
+    padding: 2rem;
+    background-color: white;
+    border-radius: 1rem; /* Sudut lebih tumpul */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.page-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0; /* Garis pemisah abu-abu terang */
+    padding-bottom: 20px;
+}
+
+.page-header h1 {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin: 0;
+    margin-top: 15px;
+    color: #1e293b; /* Warna teks gelap */
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #475569; /* Warna teks abu-abu */
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.back-button:hover {
+    color: #1e293b;
+}
+
+/* Mengatur tampilan field yang dirender oleh Django (form.as_p) */
+.form-wrapper p {
+    margin-bottom: 20px;
+}
+
+.form-wrapper label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #334155; /* Warna label sedikit lebih gelap */
+}
+
+.form-wrapper input[type="text"],
+.form-wrapper input[type="number"],
+.form-wrapper input[type="email"],
+.form-wrapper input[type="password"],
+.form-wrapper select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1; /* Border abu-abu */
+    background-color: #f8fafc; /* Latar belakang input sedikit abu-abu */
+    color: #1e293b; /* Teks input gelap */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.form-wrapper input::placeholder {
+    color: #94a3b8;
+}
+
+.form-actions {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.submit-button, .cancel-button {
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+}
+
+.submit-button {
+    background-color: #2563EB; /* Aksen Biru */
+    color: #ffffff;
+}
+
+.cancel-button {
+    background-color: #e2e8f0; /* Abu-abu terang */
+    color: #475569;
+}

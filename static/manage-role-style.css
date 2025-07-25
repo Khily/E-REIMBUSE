@@ -1,0 +1,84 @@
+/* Menggunakan font Inter sebagai default untuk konsistensi */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #1e293b; /* text-slate-800 */
+    text-decoration: none;
+}
+
+.add-role-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #3B82F6; /* bg-blue-500 */
+    color: white;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.5rem; /* rounded-lg */
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+.add-role-btn:hover {
+    background-color: #2563EB; /* bg-blue-600 */
+}
+
+.role-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem; /* p-5 */
+    border-radius: 0.75rem; /* rounded-xl */
+    background-color: #f8fafc; /* bg-slate-50 */
+    border: 1px solid #e2e8f0; /* border-slate-200 */
+    transition: all 0.2s ease-in-out;
+}
+
+.role-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border-color: #cbd5e1;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.edit-btn, .delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.edit-btn {
+    background-color: #DBEAFE; /* bg-blue-100 */
+    color: #2563EB; /* text-blue-600 */
+    text-decoration: none;
+}
+
+.edit-btn:hover {
+    background-color: #BFDBFE; /* bg-blue-200 */
+}
+
+.delete-btn {
+    background-color: #FEE2E2; /* bg-red-100 */
+    color: #DC2626; /* text-red-600 */
+}
+
+.delete-btn:hover {
+    background-color: #FECACA; /* bg-red-200 */
+}

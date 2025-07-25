@@ -1,0 +1,156 @@
+/* Menggunakan font Inter sebagai default untuk konsistensi */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Memberikan gaya pada input form yang dirender oleh Django */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    background-color: white;
+    border: 1px solid #cbd5e1; /* slate-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    padding: 0.75rem; /* p-3 */
+    color: #1e293b; /* slate-800 */
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Khusus untuk select dropdown - memastikan bisa scroll */
+select {
+    appearance: none; /* Menghilangkan styling default browser */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+/* Styling untuk select dengan size (scrollable dropdown) */
+select[size] {
+    background-image: none !important; /* Hilangkan arrow untuk multi-select */
+    padding-right: 0.75rem !important; /* Reset padding */
+    border: 2px solid #4f46e5 !important; /* Indigo border saat active */
+    border-radius: 0.5rem !important;
+    max-height: 200px !important; /* Batasi tinggi maksimal */
+    overflow-y: auto !important; /* Enable scroll */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    z-index: 50 !important; /* Pastikan dropdown di atas elemen lain */
+    position: relative !important;
+}
+
+/* Force scroll untuk select dengan banyak option */
+select[size="6"], select[size="7"], select[size="8"] {
+    height: 200px !important;
+    overflow-y: scroll !important;
+}
+
+/* Styling untuk option di dalam select */
+select option {
+    padding: 0.75rem !important;
+    background-color: white !important;
+    color: #1e293b !important;
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    cursor: pointer !important;
+}
+
+/* Hover effect untuk option */
+select option:hover,
+select option:focus {
+    background-color: #f1f5f9 !important;
+    color: #4f46e5 !important;
+}
+
+/* Selected option styling */
+select option:checked {
+    background-color: #4f46e5 !important;
+    color: white !important;
+}
+
+/* Styling khusus untuk option yang dipilih di multi-select */
+select[size] option:checked {
+    background-color: #4f46e5 !important;
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+select[size] option:last-child {
+    border-bottom: none !important;
+}
+
+/* Pastikan select tidak terpotong oleh container */
+.relative {
+    overflow: visible !important;
+}
+
+/* Styling khusus untuk select yang sedang dalam mode dropdown */
+select[size]:focus {
+    outline: none !important;
+    border-color: #4f46e5 !important;
+}
+
+input:focus,
+select:focus {
+    --tw-ring-color: #4f46e5; /* ring-indigo-500 */
+    --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+    --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+    box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+    border-color: #4f46e5; /* border-indigo-500 */
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+}
+
+
+/* Wrapper kustom untuk input file */
+.custom-file-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border: 1px solid #cbd5e1; /* slate-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    padding: 0.625rem; /* p-2.5 */
+}
+
+/* Teks nama file */
+.file-name-display {
+    color: #64748b; /* slate-500 */
+    font-size: 0.875rem; /* text-sm */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 0.5rem; /* pr-2 */
+}
+
+/* Tombol "Tambah Foto" */
+.file-input-label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background-color: #f1f5f9; /* slate-100 */
+    color: #475569; /* slate-600 */
+    font-weight: 500;
+    transition: background-color 0.2s;
+    flex-shrink: 0;
+}
+
+.file-input-label:hover {
+    background-color: #e2e8f0; /* slate-200 */
+}
+
+/* Menyembunyikan input file asli */
+.file-input {
+    display: none;
+}
+
+/* Style untuk placeholder kustom */
+::placeholder {
+    color: #94a3b8; /* Warna abu-abu untuk placeholder */
+}

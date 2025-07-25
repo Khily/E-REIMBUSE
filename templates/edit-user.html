@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User - E-Reimburse</title>
+    
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Font Inter dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Container Utama yang Responsif -->
+    <div class="min-h-screen py-4 px-4 sm:py-8">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        
+                <!-- Header -->
+                <div class="p-6 sm:p-8 pb-4">
+                    <div class="flex items-center gap-3 mb-6">
+                        <a href="{% url 'core_app:manage_user' %}" 
+                           class="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-200">
+                            <i class="bi bi-arrow-left text-lg"></i>
+                            <span class="font-medium">Kembali ke Manage Role</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Edit User</h1>
+                        <p class="text-gray-500 text-sm sm:text-base">Edit Akun untuk {{ profile.user.full_name }}</p>
+                    </div>
+                </div>
+
+                <!-- Form Section -->
+                <div class="p-6 sm:p-8 pt-0">
+                    <form method="POST" class="space-y-6">
+                        {% csrf_token %}
+                        
+                        <!-- Data User Section -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Data User</h3>
+                            
+                            <!-- Full Name Field -->
+                            <div class="space-y-2">
+                                <label for="{{ user_form.full_name.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                                    Nama Lengkap:
+                                </label>
+                                <input type="text" 
+                                       name="{{ user_form.full_name.name }}" 
+                                       id="{{ user_form.full_name.id_for_label }}"
+                                       value="{{ user_form.full_name.value|default:'' }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                       placeholder="Masukkan nama lengkap">
+                                {% if user_form.full_name.errors %}
+                                    <div class="text-red-500 text-sm">{{ user_form.full_name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Personal Number Field -->
+                            <div class="space-y-2">
+                                <label for="{{ user_form.personal_number.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                                    NIP:
+                                </label>
+                                <input type="text" 
+                                       name="{{ user_form.personal_number.name }}" 
+                                       id="{{ user_form.personal_number.id_for_label }}"
+                                       value="{{ user_form.personal_number.value|default:'' }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                       placeholder="Masukkan NIP">
+                                {% if user_form.personal_number.errors %}
+                                    <div class="text-red-500 text-sm">{{ user_form.personal_number.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="space-y-2">
+                                <label for="{{ user_form.email.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                                    Email:
+                                </label>
+                                <input type="email" 
+                                       name="{{ user_form.email.name }}" 
+                                       id="{{ user_form.email.id_for_label }}"
+                                       value="{{ user_form.email.value|default:'' }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                       placeholder="Masukkan email">
+                                {% if user_form.email.errors %}
+                                    <div class="text-red-500 text-sm">{{ user_form.email.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Data Profil Section -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2">Data Profil</h3>
+                            
+                            <!-- Role Field -->
+                            <div class="space-y-2">
+                                <label for="{{ profile_form.role.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                                    Role:
+                                </label>
+                                <select name="{{ profile_form.role.name }}" 
+                                        id="{{ profile_form.role.id_for_label }}"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200">
+                                    {% for option in profile_form.role %}
+                                        {{ option.tag }}
+                                    {% endfor %}
+                                </select>
+                                {% if profile_form.role.errors %}
+                                    <div class="text-red-500 text-sm">{{ profile_form.role.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Plate Number Field -->
+                            <div class="space-y-2">
+                                <label for="{{ profile_form.plat_number.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                                    Plat Nomor:
+                                </label>
+                                <input type="text" 
+                                       name="{{ profile_form.plat_number.name }}" 
+                                       id="{{ profile_form.plat_number.id_for_label }}"
+                                       value="{{ profile_form.plat_number.value|default:'' }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+                                       placeholder="Masukkan plat nomor">
+                                {% if profile_form.plat_number.errors %}
+                                    <div class="text-red-500 text-sm">{{ profile_form.plat_number.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-3 pt-6">
+                            <button type="submit" 
+                                    class="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
+                                Simpan Perubahan
+                            </button>
+                            <a href="{% url 'core_app:manage_user' %}" 
+                               class="flex-1 bg-gray-100 text-gray-700 py-3 px-6 rounded-lg font-medium hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200 text-center">
+                                Batal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah User Baru - E-Reimburse</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div class="min-h-screen py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto">
+            
+            <!-- Header -->
+            <div class="mb-6">
+                <a href="{% url 'core_app:manage_user' %}" class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors mb-4">
+                    <i class="bi bi-arrow-left text-lg"></i>
+                    <span class="text-sm font-medium">Kembali ke Manage User</span>
+                </a>
+                
+                <div class="text-center">
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Tambah User Baru</h1>
+                    <p class="text-gray-600">Lengkapi form berikut untuk menambahkan pengguna baru</p>
+                </div>
+            </div>
+
+            <!-- Form Card -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8">
+                <form method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    <!-- Display Errors -->
+                    {% if form.errors or user_form.errors or profile_form.errors %}
+                        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                            <div class="flex">
+                                <i class="bi bi-exclamation-triangle text-red-500 mt-0.5 mr-3"></i>
+                                <div>
+                                    <h3 class="text-sm font-medium text-red-800">Terdapat kesalahan pada form:</h3>
+                                    <div class="mt-2 text-sm text-red-700">
+                                        {{ form.errors }}
+                                        {{ user_form.errors }}
+                                        {{ profile_form.errors }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <!-- Full Name -->
+                    <div>
+                        <label for="{{ user_form.full_name.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Nama Lengkap:
+                        </label>
+                        <input type="text" 
+                               id="{{ user_form.full_name.id_for_label }}" 
+                               name="{{ user_form.full_name.name }}" 
+                               value="{{ user_form.full_name.value|default:'' }}"
+                               placeholder="Contoh: John Doe"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               {% if user_form.full_name.field.required %}required{% endif %}>
+                        {% if user_form.full_name.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ user_form.full_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Personal Number -->
+                    <div>
+                        <label for="{{ user_form.personal_number.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Nomor Personal:
+                        </label>
+                        <input type="text" 
+                               id="{{ user_form.personal_number.id_for_label }}" 
+                               name="{{ user_form.personal_number.name }}" 
+                               value="{{ user_form.personal_number.value|default:'' }}"
+                               placeholder="Contoh: 12345"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               {% if user_form.personal_number.field.required %}required{% endif %}>
+                        {% if user_form.personal_number.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ user_form.personal_number.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="{{ user_form.email.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Email:
+                        </label>
+                        <input type="email" 
+                               id="{{ user_form.email.id_for_label }}" 
+                               name="{{ user_form.email.name }}" 
+                               value="{{ user_form.email.value|default:'' }}"
+                               placeholder="Contoh: john@company.com"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               {% if user_form.email.field.required %}required{% endif %}>
+                        {% if user_form.email.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ user_form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Role -->
+                    <div>
+                        <label for="{{ profile_form.role.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Role/Jabatan:
+                        </label>
+                        <select id="{{ profile_form.role.id_for_label }}" 
+                                name="{{ profile_form.role.name }}" 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                {% if profile_form.role.field.required %}required{% endif %}>
+                            <option value="">-- Pilih Role --</option>
+                            {% for choice in profile_form.role.field.queryset %}
+                                <option value="{{ choice.pk }}" {% if profile_form.role.value == choice.pk %}selected{% endif %}>
+                                    {{ choice.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if profile_form.role.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ profile_form.role.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- License Plate -->
+                    <div>
+                        <label for="{{ profile_form.license_plate.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Plat Nomor Kendaraan:
+                        </label>
+                        <input type="text" 
+                               id="{{ profile_form.license_plate.id_for_label }}" 
+                               name="{{ profile_form.license_plate.name }}" 
+                               value="{{ profile_form.license_plate.value|default:'' }}"
+                               placeholder="Contoh: B 1234 ABC"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               {% if profile_form.license_plate.field.required %}required{% endif %}>
+                        {% if profile_form.license_plate.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ profile_form.license_plate.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <label for="{{ user_form.password1.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Password:
+                        </label>
+                        <input type="password" 
+                               id="{{ user_form.password1.id_for_label }}" 
+                               name="{{ user_form.password1.name }}" 
+                               placeholder="Masukkan password"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               {% if user_form.password1.field.required %}required{% endif %}>
+                        {% if user_form.password1.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ user_form.password1.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                        <label for="{{ user_form.password2.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Konfirmasi Password:
+                        </label>
+                        <input type="password" 
+                               id="{{ user_form.password2.id_for_label }}" 
+                               name="{{ user_form.password2.name }}" 
+                               placeholder="Ulangi password"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                               {% if user_form.password2.field.required %}required{% endif %}>
+                        {% if user_form.password2.errors %}
+                            <p class="mt-1 text-sm text-red-600">{{ user_form.password2.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3 pt-6">
+                        <button type="submit" 
+                                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                            Simpan User
+                        </button>
+                        <a href="{% url 'core_app:manage_user' %}" 
+                           class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors text-center">
+                            Batal
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

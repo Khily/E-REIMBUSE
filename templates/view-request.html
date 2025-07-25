@@ -1,0 +1,365 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Request</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .filter-active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .filter-inactive {
+            background-color: #e5e7eb;
+            color: #6b7280;
+        }
+        .evidence-btn {
+            background-color: #dbeafe;
+            color: #2563eb;
+        }
+        .evidence-btn:hover {
+            background-color: #bfdbfe;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            max-width: 90%;
+            max-height: 80%;
+        }
+        .modal img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 25px;
+            color: white;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Modal for Evidence Images -->
+    <div id="evidenceModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImage" src="" alt="Evidence">
+        </div>
+    </div>
+
+    <!-- Container Utama yang Responsif -->
+    <div class="min-h-screen py-4 px-4 sm:py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+
+                <!-- Header -->
+                <div class="p-6 sm:p-8 pb-4">
+                    <div class="flex items-center gap-3 mb-6">
+                        <a href="{% url 'core_app:admin_dashboard' %}" 
+                           class="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-200">
+                            <i class="bi bi-arrow-left text-lg"></i>
+                            <span class="font-medium">Back</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">View Request</h1>
+                        <p class="text-gray-500 text-sm sm:text-base">Anda Dapat Melihat Inputan BBM Pengguna!</p>
+                    </div>
+
+                    <!-- Filter Section -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 pt-6 border-t border-gray-200">
+                        <!-- Left Side - Filter Buttons -->
+                        <div class="flex flex-wrap items-center gap-3">
+                            <!-- All Button -->
+                            <form method="GET" action="{% url 'core_app:view_request' %}" class="inline">
+                                <button type="submit" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 {% if not request.GET.month and not request.GET.year %}filter-active{% else %}filter-inactive hover:bg-gray-300{% endif %}">
+                                    All
+                                </button>
+                            </form>
+                            
+                            <!-- Month Filter -->
+                            <form method="GET" action="{% url 'core_app:view_request' %}" class="inline">
+                                {% if request.GET.year %}<input type="hidden" name="year" value="{{ request.GET.year }}">{% endif %}
+                                <select name="month" onchange="this.form.submit()" 
+                                        class="px-4 py-2 rounded-lg text-sm font-medium border-0 cursor-pointer transition-colors duration-200 {% if request.GET.month %}filter-active{% else %}filter-inactive hover:bg-gray-300{% endif %}">
+                                    <option value="">Bulan</option>
+                                    <option value="1" {% if request.GET.month == "1" %}selected{% endif %}>Januari</option>
+                                    <option value="2" {% if request.GET.month == "2" %}selected{% endif %}>Februari</option>
+                                    <option value="3" {% if request.GET.month == "3" %}selected{% endif %}>Maret</option>
+                                    <option value="4" {% if request.GET.month == "4" %}selected{% endif %}>April</option>
+                                    <option value="5" {% if request.GET.month == "5" %}selected{% endif %}>Mei</option>
+                                    <option value="6" {% if request.GET.month == "6" %}selected{% endif %}>Juni</option>
+                                    <option value="7" {% if request.GET.month == "7" %}selected{% endif %}>Juli</option>
+                                    <option value="8" {% if request.GET.month == "8" %}selected{% endif %}>Agustus</option>
+                                    <option value="9" {% if request.GET.month == "9" %}selected{% endif %}>September</option>
+                                    <option value="10" {% if request.GET.month == "10" %}selected{% endif %}>Oktober</option>
+                                    <option value="11" {% if request.GET.month == "11" %}selected{% endif %}>November</option>
+                                    <option value="12" {% if request.GET.month == "12" %}selected{% endif %}>Desember</option>
+                                </select>
+                            </form>
+
+                            <!-- Year Filter -->
+                            <form method="GET" action="{% url 'core_app:view_request' %}" class="inline">
+                                {% if request.GET.month %}<input type="hidden" name="month" value="{{ request.GET.month }}">{% endif %}
+                                <select name="year" onchange="this.form.submit()" 
+                                        class="px-4 py-2 rounded-lg text-sm font-medium border-0 cursor-pointer transition-colors duration-200 {% if request.GET.year %}filter-active{% else %}filter-inactive hover:bg-gray-300{% endif %}">
+                                    <option value="">Tahun</option>
+                                    <option value="2025" {% if request.GET.year == "2025" %}selected{% endif %}>2025</option>
+                                    <option value="2024" {% if request.GET.year == "2024" %}selected{% endif %}>2024</option>
+                                    <option value="2023" {% if request.GET.year == "2023" %}selected{% endif %}>2023</option>
+                                    <option value="2022" {% if request.GET.year == "2022" %}selected{% endif %}>2022</option>
+                                </select>
+                            </form>
+                        </div>
+
+                        <!-- Right Side - Export Button -->
+                        <div class="flex items-center gap-3">
+                            <a href="{% url 'core_app:export_requests_excel' %}{% if request.GET.month or request.GET.year %}?{% if request.GET.month %}month={{ request.GET.month }}{% endif %}{% if request.GET.month and request.GET.year %}&{% endif %}{% if request.GET.year %}year={{ request.GET.year }}{% endif %}{% endif %}" 
+                               class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2">
+                                <i class="bi bi-file-earmark-excel"></i>
+                                <span>Export Excel</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Request Content -->
+                <div class="pb-6">
+                    {% regroup all_requests by reimburse_date as grouped_requests %}
+                    {% for group in grouped_requests %}
+                        <!-- Date Header -->
+                        <div class="px-6 sm:px-8 py-3 bg-gray-50 border-y border-gray-100">
+                            <h3 class="text-sm font-semibold text-gray-600">{{ group.grouper|date:"j F Y" }}</h3>
+                        </div>
+
+                        <!-- Request Items -->
+                        <div class="divide-y divide-gray-100">
+                            {% for request in group.list %}
+                                <div class="flex items-center justify-between p-6 sm:px-8 hover:bg-gray-50 transition-colors duration-200">
+                                    <div class="flex-grow">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <h4 class="font-semibold text-gray-900">{{ request.get_plat_number }}</h4>
+                                            <span class="text-sm text-gray-500">request by {{ request.user.full_name|truncatechars:15 }}</span>
+                                        </div>
+                                        <p class="text-gray-700 font-medium">Rp {{ request.total_reimbursement_amount|floatformat:0|intcomma }}.-</p>
+                                        <p class="text-xs text-gray-500">Diajukan: {{ request.submission_date|date:"d/m/Y H:i" }}</p>
+                                    </div>
+                                    
+                                    <div class="flex items-center gap-3">
+                                        <!-- Status Icon or Action Buttons -->
+                                        {% if request.status == 'Approved' %}
+                                            <i class="bi bi-check-circle-fill text-green-500 text-xl"></i>
+                                        {% elif request.status == 'Rejected' %}
+                                            <i class="bi bi-x-circle-fill text-red-500 text-xl"></i>
+                                        {% else %}
+                                            <!-- Approve/Reject Buttons for Pending Status -->
+                                            <div class="flex items-center gap-2">
+                                                <!-- Approve Button -->
+                                                <form action="{% url 'core_app:approve_request' request.id %}" method="post" class="inline">
+                                                    {% csrf_token %}
+                                                    <button type="submit" 
+                                                            class="flex items-center justify-center w-8 h-8 bg-green-100 hover:bg-green-200 text-green-600 rounded-full transition-colors duration-200"
+                                                            title="Terima"
+                                                            onclick="return confirm('Anda yakin ingin menyetujui pengajuan ini?');">
+                                                        <i class="bi bi-check text-sm font-bold"></i>
+                                                    </button>
+                                                </form>
+                                                
+                                                <!-- Reject Button -->
+                                                <form action="{% url 'core_app:reject_request' request.id %}" method="post" class="inline">
+                                                    {% csrf_token %}
+                                                    <button type="submit" 
+                                                            class="flex items-center justify-center w-8 h-8 bg-red-100 hover:bg-red-200 text-red-600 rounded-full transition-colors duration-200"
+                                                            title="Tolak"
+                                                            onclick="return confirm('Anda yakin ingin menolak pengajuan ini?');">
+                                                        <i class="bi bi-x text-sm font-bold"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <!-- Evidence Button -->
+                                        {% if request.speedometer_before or request.speedometer_after or request.fuel_receipt %}
+                                            <div class="relative">
+                                                <button onclick="toggleEvidenceDropdown({{ request.id }})" 
+                                                        class="evidence-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-1">
+                                                    Evidence
+                                                    <i class="bi bi-chevron-down text-xs"></i>
+                                                </button>
+                                                
+                                                <!-- Evidence Dropdown -->
+                                                <div id="evidenceDropdown{{ request.id }}" 
+                                                     class="hidden absolute right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-max">
+                                                    {% if request.speedometer_before %}
+                                                        <button onclick="showEvidence('{{ request.speedometer_before.url }}')" 
+                                                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 first:rounded-t-lg">
+                                                            Speedometer Sebelum
+                                                        </button>
+                                                    {% endif %}
+                                                    {% if request.speedometer_after %}
+                                                        <button onclick="showEvidence('{{ request.speedometer_after.url }}')" 
+                                                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                                            Speedometer Sesudah
+                                                        </button>
+                                                    {% endif %}
+                                                    {% if request.fuel_receipt %}
+                                                        <button onclick="showEvidence('{{ request.fuel_receipt.url }}')" 
+                                                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 last:rounded-b-lg">
+                                                            Struk BBM
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <span class="text-xs text-gray-400">No Evidence</span>
+                                        {% endif %}
+                                        
+                                        <!-- Time -->
+                                        <div class="text-sm text-gray-400 min-w-0">
+                                            {{ request.submission_date|time:"H.i" }} WIB
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% empty %}
+                        <!-- Empty State -->
+                        <div class="text-center py-16 px-6">
+                            <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                <i class="bi bi-file-earmark-text text-gray-400 text-3xl"></i>
+                            </div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">Tidak ada permintaan</h3>
+                            <p class="text-gray-500">Belum ada pengajuan reimbursement yang ditemukan.</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle evidence dropdown
+        function toggleEvidenceDropdown(requestId) {
+            const dropdown = document.getElementById('evidenceDropdown' + requestId);
+            const allDropdowns = document.querySelectorAll('[id^="evidenceDropdown"]');
+            
+            // Close all other dropdowns
+            allDropdowns.forEach(d => {
+                if (d.id !== 'evidenceDropdown' + requestId) {
+                    d.classList.add('hidden');
+                }
+            });
+            
+            // Toggle current dropdown
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Function to show evidence modal
+        function showEvidence(imageUrl) {
+            console.log('Original Image URL:', imageUrl);
+            
+            // Close all dropdowns first
+            const allDropdowns = document.querySelectorAll('[id^="evidenceDropdown"]');
+            allDropdowns.forEach(d => d.classList.add('hidden'));
+            
+            var modal = document.getElementById('evidenceModal');
+            var modalImg = document.getElementById('modalImage');
+            
+            // Check if imageUrl is valid
+            if (!imageUrl || imageUrl === 'None' || imageUrl === '' || imageUrl === 'null') {
+                alert('Tidak ada bukti gambar untuk pengajuan ini.');
+                return;
+            }
+            
+            // Clean the URL - remove any leading/trailing whitespace
+            imageUrl = imageUrl.trim();
+            
+            // Debug: log the final URL
+            console.log('Final Image URL:', imageUrl);
+            
+            modal.style.display = 'block';
+            modalImg.src = imageUrl;
+            
+            // Add error handling for image loading
+            modalImg.onerror = function() {
+                console.error('Failed to load image:', imageUrl);
+                alert('Gagal memuat gambar bukti. URL: ' + imageUrl);
+                modal.style.display = 'none';
+            };
+            
+            // Add success handler
+            modalImg.onload = function() {
+                console.log('Image loaded successfully:', imageUrl);
+            };
+        }
+
+        // Close modal when clicking the close button
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('evidenceModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside the image
+        window.onclick = function(event) {
+            var modal = document.getElementById('evidenceModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+            
+            // Also close dropdowns when clicking outside
+            if (!event.target.closest('.relative')) {
+                const allDropdowns = document.querySelectorAll('[id^="evidenceDropdown"]');
+                allDropdowns.forEach(d => d.classList.add('hidden'));
+            }
+        }
+
+        // Add loading indicator for filter changes
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterSelects = document.querySelectorAll('select[name="month"], select[name="year"]');
+            
+            filterSelects.forEach(select => {
+                select.addEventListener('change', function() {
+                    // Add loading state
+                    this.style.opacity = '0.6';
+                    this.disabled = true;
+                    
+                    // Create a loading message
+                    const loadingDiv = document.createElement('div');
+                    loadingDiv.className = 'fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg z-50';
+                    loadingDiv.textContent = 'Memfilter data...';
+                    document.body.appendChild(loadingDiv);
+                    
+                    // Submit will happen automatically due to onchange
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

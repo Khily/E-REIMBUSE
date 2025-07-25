@@ -1,0 +1,101 @@
+/* Pengaturan dasar dan font */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0A2B6E; /* Warna biru tua dari gambar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Wadah utama */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header (Logo & Judul) */
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.logo {
+    width: 150px; /* Sesuaikan ukuran logo */
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.login-header h1 {
+    font-size: 2em;
+    font-weight: 700;
+}
+
+/* Kartu Form Login */
+.login-card {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #f7f7f7;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #0A2B6E;
+    background-color: white;
+}
+
+/* Tombol Login */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: #1E4A9B; /* Warna biru dari tombol di gambar */
+    color: white;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background-color: #163B7F; /* Warna sedikit lebih gelap saat disentuh */
+}

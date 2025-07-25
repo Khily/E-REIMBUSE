@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Penggunaan</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Font Inter dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-['Inter']">
+
+    <!-- Container Utama -->
+    <div class="min-h-screen">
+        
+        <!-- Header Biru -->
+        <header class="bg-blue-600 text-white p-4 sm:p-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-center gap-4 mb-2">
+                    <a href="{% url 'core_app:user_dashboard' %}" class="flex items-center gap-2 text-white hover:text-blue-200 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        <span class="text-sm font-medium">Back</span>
+                    </a>
+                </div>
+                <h1 class="text-xl sm:text-2xl font-bold">Panduan Penggunaan</h1>
+                <p class="text-blue-100 text-sm mt-1">Petunjuk lengkap menggunakan aplikasi E-Reimburse</p>
+            </div>
+        </header>
+
+        <!-- Konten Panduan -->
+        <main class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div class="space-y-6 sm:space-y-8">
+
+                <!-- Item 1 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-4 sm:p-6">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span class="text-xl font-bold text-blue-600">1</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Buka Menu Reimburse App</h3>
+                                <p class="text-gray-600 text-sm sm:text-base">Reimburse App adalah sebuah menu apabila anda ingin melakukan input reimburse.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-4 sm:p-6">
+                        <div class="flex flex-col sm:flex-row-reverse items-start sm:items-center gap-4">
+                            <div class="flex-shrink-0 sm:order-2">
+                                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                    <span class="text-xl font-bold text-green-600">2</span>
+                                </div>
+                            </div>
+                            <div class="flex-1 sm:order-1">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Pilih Button " + "</h3>
+                                <p class="text-gray-600 text-sm sm:text-base">Klik Button " + " untuk menambahkan input reimburse baru.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-4 sm:p-6">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <span class="text-xl font-bold text-purple-600">3</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Input File Yang Dibutuhkan</h3>
+                                <p class="text-gray-600 text-sm sm:text-base">Anda dapat memasukkan file berupa gambar yang diminta pada halaman input, lalu klik tombol " Kirim "</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-4 sm:p-6">
+                        <div class="flex flex-col sm:flex-row-reverse items-start sm:items-center gap-4">
+                            <div class="flex-shrink-0 sm:order-2">
+                                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                                    <span class="text-xl font-bold text-orange-600">4</span>
+                                </div>
+                            </div>
+                            <div class="flex-1 sm:order-1">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">History</h3>
+                                <p class="text-gray-600 text-sm sm:text-base">Anda dapat melihat riwayat reimburse yang sudah pernah di input. Pada menu " History " yang terletak pada halaman dashboard.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <div class="p-4 sm:p-6">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                            <div class="flex-shrink-0">
+                                <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                                    <span class="text-xl font-bold text-red-600">5</span>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Catatan Penting</h3>
+                                <p class="text-gray-600 text-sm sm:text-base">Apabila anda sudah tidak dapat melakukan penginputan maka artinya anda sudah mencapai limit di bulan tersebut.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer dengan ilustrasi -->
+            <div class="mt-12 text-center">
+                <div class="inline-block">
+                    <img src="{% static 'panduan-ilustrasi.png' %}" alt="Ilustrasi Panduan" class="w-48 h-auto mx-auto opacity-80">
+                </div>
+                <p class="text-gray-500 text-sm mt-4">Selamat menggunakan aplikasi E-Reimburse!</p>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

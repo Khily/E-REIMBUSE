@@ -1,0 +1,47 @@
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login E-Reimburse</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+
+        <div class="login-container">
+
+            <header class="login-header">
+                <img src="{% static 'logo.png' %}" alt="Logo E-Reimburse" class="logo">
+                <h1>E-Reimburse</h1>
+            </header>
+
+            <main class="login-card">
+                <!-- Form action sekarang mengarah ke URL yang benar menggunakan tag 'url' -->
+                <form action="{% url 'core_app:login_process' %}" method="POST">
+                    
+                    <!-- Token keamanan CSRF wajib untuk setiap form POST di Django -->
+                    {% csrf_token %}
+                    
+                    <div class="input-group">
+                        <label for="personal-number">Personal Number</label>
+                        <input type="text" id="personal-number" name="personal_number" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+
+                    <button type="submit" class="login-button">Login</button>
+
+                </form>
+            </main>
+
+        </div>
+
+    </body>
+    </html>

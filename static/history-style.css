@@ -1,0 +1,57 @@
+/* Menggunakan font Inter sebagai default untuk konsistensi */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Gaya untuk tombol filter */
+.filter-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px; /* Membuatnya menjadi pil */
+    font-size: 0.875rem; /* 14px */
+    font-weight: 500;
+    background-color: #f1f5f9; /* bg-slate-100 */
+    color: #475569; /* text-slate-600 */
+    border: 1px solid #e2e8f0; /* border-slate-200 */
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background-color: #e2e8f0; /* bg-slate-200 */
+}
+
+/* Gaya untuk tombol filter yang aktif */
+.filter-btn.active {
+    background-color: #eef2ff; /* bg-indigo-50 */
+    color: #4338ca; /* text-indigo-700 */
+    border-color: #c7d2fe; /* border-indigo-200 */
+}
+
+/* Grup tanggal */
+.date-group {
+    margin-top: 1rem;
+}
+
+.date-header {
+    padding: 0.5rem 1rem;
+    background-color: #f8fafc; /* bg-slate-50 */
+    color: #64748b; /* text-slate-500 */
+    font-size: 0.75rem; /* 12px */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Item riwayat */
+.history-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #f1f5f9; /* border-slate-100 */
+    transition: background-color 0.2s;
+}
+
+.history-item:hover {
+    background-color: #f8fafc; /* bg-slate-50 */
+}

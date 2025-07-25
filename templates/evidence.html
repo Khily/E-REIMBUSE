@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence Pengajuan</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Font Inter dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Menghubungkan ke file CSS kustom Anda -->
+    <link rel="stylesheet" href="{% static 'evidence-style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="bg-gray-900">
+
+    <!-- Container Utama -->
+    <div class="max-w-md mx-auto bg-gray-900 min-h-screen shadow-lg relative">
+
+        <!-- Header Biru -->
+        <header class="header-biru">
+            <h2 class="text-lg font-semibold text-white">Evidence {{ req.get_plat_number }}</h2>
+            <p class="text-sm text-white/80 mt-1">Anda Dapat Melihat Evidence Reimburse Pengguna!</p>
+        </header>
+        
+        <!-- Tombol Kembali -->
+        <a href="{% url 'core_app:view_request' %}" class="back-button">
+            <i class="bi bi-arrow-left text-2xl"></i>
+            <span class="font-semibold">Back</span>
+        </a>
+
+        <!-- Konten Evidence -->
+        <main class="px-6 pt-32 pb-32 space-y-6">
+
+            <!-- Item 1: Spedometer Sebelum -->
+            <div class="evidence-item">
+                <h3 class="evidence-title">Spedometer Sebelum Pengisian</h3>
+                <div class="evidence-content">
+                    <a href="{{ req.speedometer_before.url }}" target="_blank" class="image-container">
+                        <img src="{{ req.speedometer_before.url }}" alt="Speedometer Sebelum">
+                    </a>
+                    <a href="{{ req.speedometer_before.url }}" download class="download-btn">
+                        <i class="bi bi-download"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Item 2: Spedometer Sesudah -->
+            <div class="evidence-item">
+                <h3 class="evidence-title">Spedometer Sesudah Pengisian</h3>
+                <div class="evidence-content">
+                    <a href="{{ req.speedometer_after.url }}" target="_blank" class="image-container">
+                        <img src="{{ req.speedometer_after.url }}" alt="Speedometer Sesudah">
+                    </a>
+                    <a href="{{ req.speedometer_after.url }}" download class="download-btn">
+                        <i class="bi bi-download"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Item 3: Struk BBM -->
+            <div class="evidence-item">
+                <h3 class="evidence-title">Struk Pembelian BBM</h3>
+                <div class="evidence-content">
+                    <a href="{{ req.fuel_receipt.url }}" target="_blank" class="image-container">
+                        <img src="{{ req.fuel_receipt.url }}" alt="Struk BBM">
+                    </a>
+                    <a href="{{ req.fuel_receipt.url }}" download class="download-btn">
+                        <i class="bi bi-download"></i>
+                    </a>
+                </div>
+            </div>
+
+        </main>
+        
+        <!-- Footer dengan Tombol Aksi -->
+        <footer class="page-actions">
+            <a href="{% url 'core_app:view_request' %}" class="action-btn kembali-btn">Kembali</a>
+            
+            <!-- Hanya tampilkan tombol jika status masih 'Pending' -->
+            {% if req.status == 'Pending' %}
+            <div class="flex space-x-2">
+                <form action="{% url 'core_app:reject_request' req.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn tolak-btn" onclick="return confirm('Anda yakin ingin menolak pengajuan ini?');">Tolak</button>
+                </form>
+                <form action="{% url 'core_app:approve_request' req.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="action-btn setujui-btn">Setujui</button>
+                </form>
+            </div>
+            {% endif %}
+        </footer>
+    </div>
+
+</body>
+</html>

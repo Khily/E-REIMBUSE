@@ -1,0 +1,120 @@
+/* Menggunakan font Inter sebagai default untuk konsistensi */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.header-biru {
+    background-color: #2E5BFF; /* Warna biru dari gambar */
+    color: white;
+    padding: 1.5rem 1rem 1rem 1rem; /* p-6 pb-4 */
+    text-align: center;
+    border-bottom-left-radius: 1.5rem; /* rounded-bl-3xl */
+    border-bottom-right-radius: 1.5rem; /* rounded-br-3xl */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.back-button {
+    position: absolute;
+    top: 5.5rem; 
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #f3f4f6; /* text-gray-100 */
+    z-index: 20;
+    text-decoration: none;
+}
+
+.evidence-title {
+    font-weight: 600;
+    color: #d1d5db; /* text-gray-300 */
+    margin-bottom: 0.75rem;
+}
+
+.evidence-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.image-container {
+    flex-grow: 1;
+    border: 2px solid #374151; /* border-gray-700 */
+    border-radius: 0.75rem; /* rounded-xl */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    background-color: #1f2937; /* bg-gray-800 */
+}
+
+.image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 0.6rem;
+}
+
+.download-btn {
+    color: #9ca3af; /* text-gray-400 */
+    font-size: 1.75rem; /* text-3xl */
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.download-btn:hover {
+    color: #ffffff;
+}
+
+.page-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1f2937; /* bg-gray-800 */
+    border-top: 1px solid #374151; /* border-gray-700 */
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 20;
+}
+
+.action-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.kembali-btn {
+    background-color: #374151; /* bg-gray-700 */
+    color: #e5e7eb; /* text-gray-200 */
+    text-decoration: none;
+}
+.kembali-btn:hover {
+    background-color: #4b5563;
+}
+
+.setujui-btn {
+    background-color: #2563EB; /* bg-blue-600 */
+    color: white;
+}
+.setujui-btn:hover {
+    background-color: #1D4ED8; /* bg-blue-700 */
+}
+
+.tolak-btn {
+    background-color: #DC2626; /* bg-red-600 */
+    color: white;
+}
+.tolak-btn:hover {
+    background-color: #B91C1C; /* bg-red-700 */
+}

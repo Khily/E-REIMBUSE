@@ -1,0 +1,145 @@
+/* Import Font dari Google (opsional) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* =================================
+   GAYA DASAR (MOBILE & DESKTOP)
+   ================================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header & Info Pengguna */
+.page-header { margin-bottom: 15px; }
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #0A2B6E;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.user-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.title-group h1 { font-size: 1.8em; margin: 0; color: #212529; }
+.title-group p { margin: 0; color: #6c757d; }
+
+.action-buttons { display: flex; gap: 10px; margin-top: 5px;}
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+.delete-btn { color: #dc3545; }
+.edit-btn { color: #495057; }
+
+/* Filter Navigasi */
+.filter-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+.filter-btn {
+    flex-grow: 1;
+    text-align: center;
+    padding: 8px;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    border-radius: 20px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.filter-btn.active, .filter-btn:hover {
+    background-color: #0A2B6E;
+    color: white;
+    border-color: #0A2B6E;
+}
+
+/* Grid Ringkasan */
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.summary-card {
+    background-color: #1E4A9B;
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+.summary-card i { font-size: 1.8em; margin-bottom: 8px; }
+.summary-card p { font-size: 0.9em; opacity: 0.8; margin: 0 0 5px 0; }
+.summary-card h2 { font-size: 1.5em; margin: 0; }
+
+/* Riwayat Transaksi */
+.date-separator {
+    font-size: 1em;
+    color: #6c757d;
+    font-weight: 500;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 5px;
+}
+
+.history-list { display: flex; flex-direction: column; gap: 12px; }
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #eef0f2;
+}
+
+.item-details span { display: block; }
+.plate-number { font-weight: 600; font-size: 1.1em; }
+.request-info { font-size: 0.8em; color: #6c757d; }
+.amount { font-weight: 500; margin-top: 4px; }
+
+.item-status { display: flex; align-items: center; gap: 10px; }
+.approved-icon { color: #28a745; font-size: 1.4em; }
+.timestamp { font-size: 0.8em; color: #6c757d; white-space: nowrap; }
+.evidence-btn {
+    text-decoration: none;
+    background-color: #e7f1ff;
+    color: #0A2B6E;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.8em;
+    white-space: nowrap;
+}
+
+/* Penyesuaian untuk Desktop */
+@media (min-width: 768px) {
+    .container { padding: 40px; }
+    .title-group h1 { font-size: 2.2em; }
+    .summary-card h2 { font-size: 1.8em; }
+}

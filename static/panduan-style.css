@@ -1,0 +1,89 @@
+/* Menggunakan font Inter sebagai default untuk konsistensi */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.header-biru {
+    background-color: #2E5BFF; /* Warna biru dari gambar */
+    color: white;
+    padding: 1.25rem; /* p-5 */
+    text-align: center;
+    border-bottom-left-radius: 1.5rem; /* rounded-bl-3xl */
+    border-bottom-right-radius: 1.5rem; /* rounded-br-3xl */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.back-button {
+    position: absolute;
+    top: 4.5rem; /* Sesuaikan posisi vertikal */
+    left: 1.5rem; /* px-6 */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600; /* font-semibold */
+    color: #1f2937; /* text-gray-800 */
+    z-index: 20;
+}
+
+.panduan-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* space-x-4 */
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    .panduan-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .panduan-nomor {
+        font-size: 3rem !important; /* text-5xl for mobile */
+    }
+    
+    .panduan-konten {
+        margin-top: 1rem;
+    }
+}
+
+.panduan-nomor {
+    font-size: 4.5rem; /* text-7xl */
+    font-weight: 800; /* font-extrabold */
+    color: #dbeafe; /* bg-blue-100 */
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.panduan-konten {
+    background-color: #dbeafe; /* bg-blue-100 */
+    padding: 1rem; /* p-4 */
+    border-radius: 0.75rem; /* rounded-xl */
+    flex-grow: 1;
+}
+
+.panduan-konten.kanan {
+    text-align: left;
+}
+
+.panduan-konten.kiri {
+    text-align: left;
+}
+
+.ilustrasi-bawah {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 45%; /* Sesuaikan lebar ilustrasi */
+    z-index: 5;
+}
+
+.ilustrasi-bawah img {
+    width: 100%;
+    height: auto;
+}

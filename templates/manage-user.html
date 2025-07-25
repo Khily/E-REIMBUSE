@@ -1,0 +1,145 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage User</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Font Inter dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .user-avatar {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        }
+        .dropdown-animation {
+            transition: all 0.2s ease-in-out;
+        }
+        .dropdown-animation:hover {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Container Utama yang Responsif -->
+    <div class="min-h-screen py-4 px-4 sm:py-8">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        
+                <!-- Header -->
+                <div class="p-6 sm:p-8 pb-4">
+                    <div class="flex items-center gap-3 mb-6">
+                        <a href="{% url 'core_app:admin_dashboard' %}" 
+                           class="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors duration-200">
+                            <i class="bi bi-arrow-left text-lg"></i>
+                            <span class="font-medium">Back</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Manage User</h1>
+                        <p class="text-gray-500 text-sm sm:text-base">Anda Dapat Mengelola User Sekarang!</p>
+                    </div>
+
+                    <!-- Filter dan Tombol Tambah -->
+                    <div class="flex flex-col sm:flex-row gap-4 sm:justify-between sm:items-center pt-6 border-t border-gray-200">
+                        <!-- Filter Dropdown -->
+                        <div class="relative">
+                            <button class="dropdown-animation flex items-center gap-3 px-4 py-2.5 bg-blue-100 text-blue-700 rounded-lg font-medium text-sm hover:bg-blue-200 transition-colors duration-200">
+                                <span>ALL</span>
+                                <i class="bi bi-chevron-down text-xs"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Add User Button -->
+                        <a href="{% url 'core_app:add_user' %}" 
+                           class="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg font-medium text-sm hover:bg-blue-700 transition-colors duration-200 justify-center sm:justify-start">
+                            <i class="bi bi-person-plus text-sm"></i>
+                            <span>Add User</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Daftar Pengguna -->
+                <div class="px-6 sm:px-8 pb-6 sm:pb-8">
+                    <h2 class="text-xs font-semibold text-blue-600 mb-4 uppercase tracking-wider">All User</h2>
+                    
+                    <div class="space-y-3">
+                        {% for data in users_data %}
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200 group">
+                            <!-- Avatar -->
+                            <div class="user-avatar w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="bi bi-person text-white text-lg"></i>
+                            </div>
+                            
+                            <!-- User Info -->
+                            <div class="flex-grow min-w-0">
+                                <h3 class="font-semibold text-gray-900 text-sm sm:text-base truncate">
+                                    {{ data.user.full_name }}
+                                </h3>
+                                <p class="text-xs sm:text-sm text-gray-500 mt-0.5">
+                                    Nip. {{ data.user.personal_number }}
+                                </p>
+                            </div>
+                            
+                            <!-- Role and Limit Info -->
+                            <div class="text-right flex-shrink-0 hidden sm:block">
+                                <p class="font-semibold text-sm text-gray-900">
+                                    {% if data.profile and data.profile.role %}{{ data.profile.role.name }}{% else %}N/A{% endif %}
+                                </p>
+                                <p class="text-xs text-gray-500 mt-0.5">
+                                    Sisa Limit Rp {{ data.remaining_limit|floatformat:0|intcomma }}
+                                </p>
+                            </div>
+                            
+                            <!-- Mobile Info -->
+                            <div class="text-right flex-shrink-0 sm:hidden">
+                                <p class="font-semibold text-xs text-gray-900">
+                                    {% if data.profile and data.profile.role %}{{ data.profile.role.name }}{% else %}N/A{% endif %}
+                                </p>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <a href="{% url 'core_app:edit_user' data.user.id %}" 
+                                   class="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors duration-200"
+                                   title="Edit User">
+                                    <i class="bi bi-pencil-square text-sm"></i>
+                                </a>
+                                <form action="{% url 'core_app:delete_user' data.user.id %}" method="post" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" 
+                                            class="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors duration-200"
+                                            onclick="return confirm('Anda yakin ingin menghapus pengguna ini?');"
+                                            title="Delete User">
+                                        <i class="bi bi-trash3 text-sm"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="text-center py-12">
+                            <div class="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                <i class="bi bi-people text-gray-400 text-3xl"></i>
+                            </div>
+                            <p class="text-gray-500 text-sm">Belum ada pengguna yang terdaftar</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

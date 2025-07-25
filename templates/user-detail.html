@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Detail - E-Reimburse</title>
+    
+    <link rel="stylesheet" href="user-detail-style.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <header class="page-header">
+            <a href="manage-user.html" class="back-button">
+                <i class="bi bi-arrow-left"></i>
+                <span>Back</span>
+            </a>
+        </header>
+
+        <section class="user-info-header">
+            <div class="title-group">
+                <h1>Andi Samuel</h1>
+                <p>Anda Dapat Melihat Inputan BBM Pengguna!</p>
+            </div>
+            <div class="action-buttons">
+                <a href="#" class="action-btn delete-btn"><i class="bi bi-trash3"></i> Delete</a>
+                <a href="#" class="action-btn edit-btn"><i class="bi bi-pencil-square"></i> Edit</a>
+            </div>
+        </section>
+
+        <nav class="filter-nav">
+            <a href="#" class="filter-btn active">Hari Ini</a>
+            <a href="#" class="filter-btn">Kemarin</a>
+            <a href="#" class="filter-btn">Bulan Ini</a>
+        </nav>
+
+        <section class="summary-grid">
+            <div class="summary-card">
+                <i class="bi bi-wallet2"></i>
+                <p>Saldo Andi Samuel</p>
+                <h2>Rp 250.000</h2>
+            </div>
+            <div class="summary-card">
+                <i class="bi bi-fuel-pump"></i>
+                <p>Konsumsi BBM</p>
+                <h2>30 LITER</h2>
+            </div>
+        </section>
+
+        <main class="history-section">
+            <h3 class="date-separator">23 Juni 2025</h3>
+            <div class="history-list">
+                
+                <div class="history-item">
+                    <div class="item-details">
+                        <span class="plate-number">AD 6178 K</span>
+                        <span class="request-info">request by fadli</span>
+                        <span class="amount">Rp 234.000.-</span>
+                    </div>
+                    <div class="item-status">
+                        <i class="bi bi-check-circle-fill approved-icon"></i>
+                        <span class="timestamp">12.00 WIB</span>
+                        <a href="#" class="evidence-btn">Evidence</a>
+                    </div>
+                </div>
+
+                <div class="history-item">
+                    <div class="item-details">
+                        <span class="plate-number">AD 6178 K</span>
+                        <span class="request-info">request by fadli</span>
+                        <span class="amount">Rp 100.000.-</span>
+                    </div>
+                    <div class="item-status">
+                         <i class="bi bi-check-circle-fill approved-icon"></i>
+                        <span class="timestamp">09.20 WIB</span>
+                        <a href="#" class="evidence-btn">Evidence</a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+</body>
+</html>

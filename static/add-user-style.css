@@ -1,0 +1,135 @@
+/* Import Font dari Google (opsional) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* =================================
+   GAYA DASAR (MOBILE FIRST)
+   ================================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    width: 100%;
+    /* Atur max-width agar tidak terlalu lebar di desktop */
+    max-width: 700px; 
+    margin: 0 auto; /* Ini kunci untuk memusatkan container */
+    padding: 20px;
+}
+
+/* Header Halaman */
+.page-header {
+    margin-bottom: 25px;
+}
+
+.back-button {
+    display: inline-flex; /* Ubah agar tidak memenuhi lebar */
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #0A2B6E;
+    font-weight: 600;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+}
+
+.header-title h1 {
+    font-size: 1.8em;
+    margin: 0;
+    color: #212529;
+}
+
+.header-title p {
+    margin: 0;
+    color: #6c757d;
+}
+
+/* Form Section */
+.form-section {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: #1E4A9B;
+    box-shadow: 0 0 0 3px rgba(30, 74, 155, 0.15);
+}
+
+/* Style untuk placeholder dropdown */
+.input-group select:required:invalid {
+    color: #6c757d;
+}
+
+.input-group option[value=""][disabled] {
+    display: none;
+}
+
+.input-group option {
+    color: #212529;
+}
+
+/* Tombol Submit */
+.submit-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background-color: #1E4A9B;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: #163B7F;
+}
+
+/* ================================================
+   PENYESUAIAN UNTUK LAYAR LEBIH BESAR (DESKTOP)
+   ================================================ */
+@media (min-width: 768px) {
+    .container {
+        padding-top: 40px; /* Beri jarak atas lebih di desktop */
+        padding-bottom: 40px;
+    }
+
+    .form-section {
+        padding: 40px; /* Padding form lebih besar */
+    }
+
+    .header-title h1 {
+        font-size: 2.2em; /* Judul lebih besar */
+    }
+}

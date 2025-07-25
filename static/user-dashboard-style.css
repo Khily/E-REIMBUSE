@@ -1,0 +1,125 @@
+/* Import Font dari Google (opsional) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Pengaturan Dasar */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header & Banner (Sama seperti Admin) */
+.main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.welcome-text h1 { font-size: 1.8em; font-weight: 700; margin: 0; color: #212529; }
+.welcome-text p { margin: 0; color: #6c757d; }
+.logout-button { text-decoration: none; color: #dc3545; border: 1px solid #dc3545; padding: 5px 10px; border-radius: 8px; font-weight: 600; font-size: 0.9em; display: flex; align-items: center; gap: 5px; }
+
+.app-banner { background-color: #fff; border: 1px solid #dee2e6; border-left: 5px solid #063C94; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.banner-content h2 { font-size: 1.2em; margin: 0 0 5px 0; }
+.banner-content p { font-size: 0.9em; color: #010406; margin: 0 0 15px 0; }
+.learn-more-button { text-decoration: none; background-color: #063C94; color: white; padding: 8px 15px; border-radius: 20px; font-size: 0.8em; font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+.banner-image { width: 90px; height: auto; }
+
+/* Navigasi (Sama seperti Admin) */
+.main-nav { margin-bottom: 25px; }
+.main-nav .nav-button { background-color: #e9ecef; color: #495057; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 600; text-decoration: none; display: inline-block; }
+
+/* Section Titles */
+.about-section h2, .menu-section h2 {
+    font-size: 1.5em;
+    margin: 25px 0 15px 0;
+}
+
+/* Tentang Anda */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 kolom di mobile */
+    gap: 15px;
+}
+
+.about-card {
+    /* DIUBAH: Warna menjadi biru muda yang lebih cerah */
+    background-color: #5896f3; 
+    border-radius: 15px;
+    padding: 20px;
+    color: #040506;
+}
+
+.about-card i { font-size: 1.8em; margin-bottom: 10px; display: block; color: #063C94; }
+.about-card h3 { font-size: 1em; margin: 0; opacity: 0.8; }
+.about-card h4 { font-size: 1.4em; margin: 5px 0; color: #212529; }
+.about-card p { margin: 0; font-size: 0.9em; font-weight: 500; }
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+.progress-value {
+    height: 100%;
+    background-color: #063C94;
+    border-radius: 5px;
+}
+
+/* Menu Utama */
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.menu-card {
+    /* DIUBAH: Warna menjadi biru tua yang lebih pekat */
+    background-color: #063C94;
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 15px;
+    text-decoration: none;
+    position: relative;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Posisikan teks di bawah */
+    transition: transform 0.2s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+}
+
+.options-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.menu-icon {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.menu-text h3 { font-size: 1.1em; margin: 0; }
+.menu-text p { font-size: 0.9em; margin: 0; opacity: 0.8; }
+
+/* Penyesuaian Responsif */
+@media (min-width: 768px) {
+    .about-grid {
+        grid-template-columns: 2fr 1fr; /* 2 kolom di desktop, limit lebih lebar */
+    }
+}

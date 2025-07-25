@@ -1,0 +1,173 @@
+/* Import Font dari Google */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* =================================
+    GAYA DASAR (UNTUK MOBILE)
+   ================================= */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    /* PERBAIKAN: Menambahkan !important untuk memaksa latar belakang menjadi putih */
+    background-color: #ffffff !important; 
+    color: #333333; 
+}
+
+.container {
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.welcome-text h1 {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin: 0;
+    color: #0A2B6E; /* Warna ini akan terlihat jelas di latar putih */
+}
+
+.welcome-text p {
+    margin: 0;
+    color: #6c757d; /* Warna abu-abu terang */
+    font-size: 0.9em;
+}
+
+.tombol-keluar {
+    text-decoration: none;
+    color: #c53030;
+    background-color: #fdecec;
+    border: 1px solid #fadada;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.tombol-keluar:hover {
+    background-color: #fadada;
+}
+
+/* Banner Aplikasi */
+.app-banner {
+    background-color: #5476ab; 
+    color: #ffffff; 
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.banner-content h2 {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #ffffff; 
+    margin: 0 0 5px 0;
+}
+
+.banner-content p {
+    font-size: 0.9em;
+    color: #e0e0e0; 
+    margin: 0;
+}
+
+.banner-image {
+    width: 80px;
+    height: auto;
+}
+
+/* Navigasi */
+.main-nav .nav-button {
+    background-color: #0A2B6E; 
+    color: #ffffff; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+/* Menu */
+.menu-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #0A2B6E; 
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 15px;
+}
+
+.menu-card {
+    background-color: #1E48A5; 
+    color: #ffffff; 
+    padding: 20px;
+    border-radius: 15px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.menu-card:hover {
+    background-color: #285BC6;
+    transform: translateY(-3px);
+}
+
+.menu-icon {
+    font-size: 2em;
+}
+
+.menu-text h3 {
+    font-size: 1.1em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.menu-text p {
+    font-size: 0.85em;
+    font-weight: 400;
+    opacity: 0.9;
+    margin: 5px 0 0 0;
+}
+
+.corner-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1em;
+    opacity: 0.7;
+}
+
+/* ================================================
+    GAYA RESPONSIVE (UNTUK LAYAR LEBIH BESAR)
+   ================================================ */
+@media (min-width: 768px) {
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+
+    .banner-image {
+        width: 100px;
+    }
+}
